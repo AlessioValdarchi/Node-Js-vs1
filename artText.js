@@ -1,7 +1,7 @@
 const art = require('figlet')
 
 console.log(art.textSync('Forza Lazio', {
-    font: 'Caligraphy',
+    font: 'Big Money-ne',
     color: 'blue',
     width: 110,
 
