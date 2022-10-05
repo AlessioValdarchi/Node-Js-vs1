@@ -1,2 +1,2 @@
-const printmessage = require('./common')
-printmessage('Alessio')
+const printmessage = require("./common");
+printmessage("Alessio");

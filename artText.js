@@ -1,8 +1,9 @@
-const art = require('figlet')
+const art = require("figlet");
 
-console.log(art.textSync('Forza Lazio', {
-    font: 'Big Money-ne',
-    color: 'blue',
-    width: 110,
-
-}));
+console.log(
+    art.textSync("Forza Lazio", {
+        font: "Big Money-ne",
+        color: "blue",
+        width: 110,
+    })
+);

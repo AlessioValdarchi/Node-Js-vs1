@@ -1,2 +1,2 @@
 import printMex from "./printMex.mjs";
-printMex('Alex')
+printMex("Alex");

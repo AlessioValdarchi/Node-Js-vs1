@@ -1,6 +1,5 @@
 const { createServer } = require("node:http");
 function createApp() {
-
     return createServer((request, response) => {
         console.log("request received");
 
@@ -8,10 +7,10 @@ function createApp() {
 
         response.setHeader("Content-Type", "application/json");
 
-        const jsonResponseBody = JSON.stringify({ location: 'Mars' });
+        const jsonResponseBody = JSON.stringify({ location: "Mars" });
 
         response.end(jsonResponseBody);
     });
-};
+}
 
 module.exports = createApp;
