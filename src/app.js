@@ -1,16 +1,16 @@
-const { createServer } = require("node:http");
-function createApp() {
-    return createServer((request, response) => {
-        console.log("request received");
+// const { createServer } = require("node:http");
+// function createApp() {
+//     return createServer((request, response) => {
+//         console.log("request received");
 
-        response.statusCode = 200;
+//         response.statusCode = 200;
 
-        response.setHeader("Content-Type", "application/json");
+//         response.setHeader("Content-Type", "application/json");
 
-        const jsonResponseBody = JSON.stringify({ location: "Mars" });
+//         const jsonResponseBody = JSON.stringify({ location: "Mars" });
 
-        response.end(jsonResponseBody);
-    });
-}
+//         response.end(jsonResponseBody);
+//     });
+// }
 
-module.exports = createApp;
+// module.exports = createApp;

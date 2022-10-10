@@ -6,7 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
 const app = (0, express_1.default)();
-app.get("/", (request, response) => {
-    response.send(`server is runnig`);
+app.get("/serieA", (request, response) => {
+    response.json([
+        {
+            name: "Lazio",
+        },
+        { name: "Inter" },
+    ]);
 });
 exports.default = app;

@@ -3,8 +3,13 @@ import "express-async-errors";
 
 const app = express();
 
-app.get("/", (request, response) => {
-    response.send(`server is runnig`);
+app.get("/serieA", (request, response) => {
+    response.json([
+        {
+            name: "Lazio",
+        },
+        { name: "Inter" },
+    ]);
 });
 
 export default app;
