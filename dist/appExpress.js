@@ -15,11 +15,10 @@ app.get("/serieA", (request, response) => {
         { name: "Inter" },
     ]);
 });
-app.get("/frasi", async () => {
+app.get("/frasi", async (req, res) => {
     const response = await (0, node_fetch_1.default)("http://numbersapi.com/random/math");
     const frase = await response.text();
-    const splitfrase = frase.split(" ");
-    const splittext = splitfrase[0];
-    console.log(splittext);
+    console.log(frase);
+    res.end(frase);
 });
 exports.default = app;

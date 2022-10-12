@@ -12,13 +12,12 @@ app.get("/serieA", (request, response) => {
     ]);
 });
 
-app.get("/frasi", async () => {
+app.get("/frasi", async (req, res) => {
     const response = await fetch("http://numbersapi.com/random/math");
     const frase = await response.text();
-    const splitfrase = frase.split(" ");
-    const splittext = splitfrase[0];
+    console.log(frase);
 
-    console.log(splittext);
+    res.end(frase);
 });
 
 export default app;
