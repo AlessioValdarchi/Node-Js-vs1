@@ -9,3 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model serieA {
+    id              Int     @id @default(autoincrement())
+    name            String  @db.VarChar(255)
+    description     String?
+    point           Int
+    goalScored      Int
+    createdAt       DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+}
