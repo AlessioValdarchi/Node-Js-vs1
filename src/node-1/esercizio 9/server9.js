@@ -1,4 +1,4 @@
-const createApp = require("./app.mjs");
+const createApp = require("./app.mjs.js");
 
 const app = createApp();
 
