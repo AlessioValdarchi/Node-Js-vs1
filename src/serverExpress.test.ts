@@ -34,18 +34,38 @@ test("GET /serieaA", async () => {
 
     expect(resp.body).toEqual(serieA);
 });
-test("POST /serieaA", async () => {
-    const serieA = {
-        name: "Lazio",
-        description: null,
-        point: 24,
-        goalScored: 23,
-    };
-    const resp = await req
-        .post("/serieA")
-        .send(serieA)
-        .expect(201)
-        .expect("content-type", /application\/json/);
+describe("POST /serieA", () => {
+    test("Valid request", async () => {
+        const serieA = {
+            name: "Lazio",
+            description: null,
+            point: 24,
+            goalScored: 23,
+        };
+        const resp = await req
+            .post("/serieA")
+            .send(serieA)
+            .expect(201)
+            .expect("content-type", /application\/json/);
 
-    expect(resp.body).toEqual(serieA);
+        expect(resp.body).toEqual(serieA);
+    });
+    test("Invalid request", async () => {
+        const serieA = {
+            description: null,
+            point: 24,
+            goalScored: 23,
+        };
+        const resp = await req
+            .post("/serieA")
+            .send(serieA)
+            .expect(422)
+            .expect("content-type", /application\/json/);
+
+        expect(resp.body).toEqual({
+            errors: {
+                body: expect.any(Array),
+            },
+        });
+    });
 });
