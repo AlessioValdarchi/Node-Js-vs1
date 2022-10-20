@@ -21,8 +21,10 @@ app.post(
     "/serieA",
     validate({ body: serieASchema }),
     async (request, response) => {
-        const serieA: serieAData = request.body;
-
+        const serieAData: serieAData = request.body;
+        const serieA = await prisma.serieA.create({
+            data: serieAData,
+        });
         response.status(201).json(serieA);
     }
 );

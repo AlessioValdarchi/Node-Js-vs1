@@ -15,7 +15,10 @@ app.get("/serieA", async (request, response) => {
     response.json(serieA);
 });
 app.post("/serieA", (0, validation_1.validate)({ body: validation_1.serieASchema }), async (request, response) => {
-    const serieA = request.body;
+    const serieAData = request.body;
+    const serieA = await client_1.default.serieA.create({
+        data: serieAData,
+    });
     response.status(201).json(serieA);
 });
 // app.get("/frasi", async (req, res) => {

@@ -40,13 +40,25 @@ describe("GET /serieA", () => {
 describe("POST /serieA", () => {
     test("Valid request", async () => {
         const serieA = {
+            id: 3,
             name: "Lazio",
+            description: null,
             point: 24,
             goalScored: 23,
+            createdAt: "2022-10-20T21:20:24.308Z",
+            updatedAt: "2022-10-20T21:20:24.308Z",
         };
+
+        //@ts-ignore
+        prismaMock.serieA.create.mockResolvedValue(serieA);
+
         const resp = await req
             .post("/serieA")
-            .send(serieA)
+            .send({
+                name: "Lazio",
+                point: 24,
+                goalScored: 23,
+            })
             .expect(201)
             .expect("content-type", /application\/json/);
 
