@@ -239,6 +239,14 @@ describe("DELETE /serieA/:id", () => {
 });
 
 describe("POST /serieA/:id/photo", () => {
+    test("Valid test with uploaded png photo", async () => {
+        await req
+            .post("/serieA/3/photo")
+            .attach("photo", "test-fixtures/photos/palla.png")
+            .expect(201)
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+    });
+
     test("invalid id", async () => {
         const response = await req
             .post("/serieA/asdf")
