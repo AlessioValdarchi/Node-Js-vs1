@@ -1,18 +1,21 @@
 import express from "express";
 import "express-async-errors";
+import cors from "cors";
 //import fetch from "node-fetch";
-
+import prisma from "./lib/prisma/client";
 import {
     validate,
     validationErrorMiddleware,
     serieASchema,
     serieAData,
 } from "./lib/validation";
-import prisma from "./lib/prisma/client";
-import { nextTick } from "process";
+
+const corsOptions = {
+    origin: "http://localhost:8080",
+};
 const app = express();
 app.use(express.json());
-
+app.use(cors(corsOptions));
 app.get("/serieA", async (request, response) => {
     const serieA = await prisma.serieA.findMany();
 

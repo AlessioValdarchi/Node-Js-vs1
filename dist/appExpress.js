@@ -5,11 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
+const cors_1 = __importDefault(require("cors"));
 //import fetch from "node-fetch";
-const validation_1 = require("./lib/validation");
 const client_1 = __importDefault(require("./lib/prisma/client"));
+const validation_1 = require("./lib/validation");
+const corsOptions = {
+    origin: "http://localhost:8080",
+};
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)(corsOptions));
 app.get("/serieA", async (request, response) => {
     const serieA = await client_1.default.serieA.findMany();
     response.json(serieA);
@@ -32,7 +37,7 @@ app.post("/serieA/:id(\\d+)", (0, validation_1.validate)({ body: validation_1.se
     });
     response.status(201).json(serieA);
 });
-app.put("/serieA", (0, validation_1.validate)({ body: validation_1.serieASchema }), async (request, response, next) => {
+app.put("/serieA/:id(\\d+)", (0, validation_1.validate)({ body: validation_1.serieASchema }), async (request, response, next) => {
     const serieAid = Number(request.params.id);
     const serieAData = request.body;
     try {
@@ -45,6 +50,19 @@ app.put("/serieA", (0, validation_1.validate)({ body: validation_1.serieASchema 
     catch (error) {
         response.status(404);
         next(`can not PUT /serieA/${serieAid}`);
+    }
+});
+app.delete("/serieA/:id(\\d+)", async (request, response, next) => {
+    const serieAid = Number(request.params.id);
+    try {
+        await client_1.default.serieA.delete({
+            where: { id: serieAid },
+        });
+        response.status(204).end();
+    }
+    catch (error) {
+        response.status(404);
+        next(`can not DELETE /serieA/${serieAid}`);
     }
 });
 // app.get("/frasi", async (req, res) => {

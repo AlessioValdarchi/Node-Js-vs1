@@ -31,7 +31,8 @@ describe("GET /serieA", () => {
         const resp = await req
             .get("/serieA")
             .expect(200)
-            .expect("content-type", /application\/json/);
+            .expect("content-type", /application\/json/)
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
 
         expect(resp.body).toEqual(serieA);
     });
@@ -105,7 +106,8 @@ describe("POST /serieA", () => {
                 goalScored: 23,
             })
             .expect(201)
-            .expect("content-type", /application\/json/);
+            .expect("content-type", /application\/json/)
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
 
         expect(resp.body).toEqual(serieA);
     });
@@ -153,7 +155,8 @@ describe("PUT /serieA", () => {
                 goalScored: 23,
             })
             .expect(200)
-            .expect("content-type", /application\/json/);
+            .expect("content-type", /application\/json/)
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
 
         expect(resp.body).toEqual(serieA);
     });
@@ -220,7 +223,7 @@ describe("DELETE /serieA/:id", () => {
         const response = await req
             .delete("/serieA/23")
             .expect(404)
-            .expect("content-type", /text\/html/);
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
 
         expect(response.text).toContain("CAN NOT DELETE/serieA/23");
     });
