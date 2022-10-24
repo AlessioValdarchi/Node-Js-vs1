@@ -237,3 +237,23 @@ describe("DELETE /serieA/:id", () => {
         expect(response.text).toContain("cannot DELETE /serieA/asdf");
     });
 });
+
+describe("POST /serieA/:id/photo", () => {
+    test("invalid id", async () => {
+        const response = await req
+            .post("/serieA/asdf")
+            .expect(404)
+            .expect("content-type", /text\/html/);
+
+        expect(response.text).toContain("cannot POST /serieA/asdf/photo");
+    });
+
+    test("invalid no file uploaded", async () => {
+        const response = await req
+            .post("/serieA/23")
+            .expect(400)
+            .expect("content-type", /text\/html/);
+
+        expect(response.text).toContain("no file uploaded");
+    });
+});

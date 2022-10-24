@@ -9,6 +9,8 @@ const cors_1 = __importDefault(require("cors"));
 //import fetch from "node-fetch";
 const client_1 = __importDefault(require("./lib/prisma/client"));
 const validation_1 = require("./lib/validation");
+const multer_1 = require("./lib/middleware/multer");
+const upload = (0, multer_1.initMulterMiddleware)();
 const corsOptions = {
     origin: "http://localhost:8080",
 };
@@ -64,6 +66,14 @@ app.delete("/serieA/:id(\\d+)", async (request, response, next) => {
         response.status(404);
         next(`can not DELETE /serieA/${serieAid}`);
     }
+});
+app.post("/serieA/:id(\\d+)/photo", upload.single("photo"), async (request, response, next) => {
+    if (!request.file) {
+        response.status(400);
+        return next("no file uploaded");
+    }
+    const photoFilename = request.file.filename;
+    response.status(201).json({ photoFilename });
 });
 // app.get("/frasi", async (req, res) => {
 //     const response = await fetch("http://numbersapi.com/random/math");
