@@ -4,7 +4,7 @@
             async function fetchserieA() {
                 const response = await fetch("http://localhost:3000/serieA");
                 const serieA = await response.json();
-                console.log(serieA);
+                console.log({serieA});
             }
             fetchserieA();
         </script>

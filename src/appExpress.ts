@@ -90,9 +90,20 @@ app.post(
             return next("no file uploaded");
         }
 
+        const serieAId = Number(request.params.id);
         const photoFilename = request.file.filename;
 
-        response.status(201).json({ photoFilename });
+        try {
+            await prisma.serieA.update({
+                where: { id: serieAId },
+                data: { photoFilename },
+            });
+
+            response.status(201).json({ photoFilename });
+        } catch (e) {
+            response.status(404);
+            next(`Cannot POST /planets/${serieAId}/photo`);
+        }
     }
 );
 
@@ -103,5 +114,7 @@ app.post(
 
 //     res.end(frase);
 // });
+
+app.use("/serieA/photo", express.static("uploads"));
 app.use(validationErrorMiddleware);
 export default app;

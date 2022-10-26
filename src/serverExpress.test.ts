@@ -1,3 +1,4 @@
+import { response } from "express";
 import supertest from "supertest";
 import app from "./appExpress";
 import { prismaMock } from "./lib/prisma/client.mock";
@@ -245,6 +246,34 @@ describe("POST /serieA/:id/photo", () => {
             .attach("photo", "test-fixtures/photos/palla.png")
             .expect(201)
             .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+    });
+    test("Valid test with uploaded jpg photo", async () => {
+        await req
+            .post("/serieA/3/photo")
+            .attach("photo", "test-fixtures/photos/tactic.jpg")
+            .expect(201)
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+    });
+    test("Valid test with uploaded txt photo", async () => {
+        const response = await req
+            .post("/serieA/3/photo")
+            .attach("photo", "test-fixtures/photos/file.txt")
+            .expect(500)
+            .expect("Content-Type", /text\/html/);
+        expect(response.text).toContain("file must be png or jpg");
+    });
+
+    test("Id not found request", async () => {
+        // @ts-ignore
+        prismaMock.planets.update.mockRejectedValue(new Error("Error"));
+
+        const response = await req
+            .post("/serieA/23/photo")
+            .attach("photo", "test-fixtures/photos/palla.png")
+            .expect(404)
+            .expect("Content-Type", /text\/html/);
+
+        expect(response.text).toContain("Cannot POST /serieA/23/photo");
     });
 
     test("invalid id", async () => {

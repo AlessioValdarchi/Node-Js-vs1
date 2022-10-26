@@ -5,6 +5,6 @@ module.exports = {
     clearMocks: true,
     setupFilesAfterEnv: [
         "./src/lib/prisma/client.mock.ts",
-        "./src/lib/middlewares/multer.mock.ts",
+        "./src/lib/middleware/multer.mock.ts",
     ],
 };
