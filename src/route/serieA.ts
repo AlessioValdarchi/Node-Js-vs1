@@ -37,17 +37,17 @@ router.post(
     async (request, response) => {
         const serieAData: serieA = request.body;
 
-        const planet = await prisma.serieA.create({
+        const serieA = await prisma.serieA.create({
             data: serieAData,
         });
 
-        response.status(201).json(planet);
+        response.status(201).json(serieA);
     }
 );
 
 router.put(
     "/:id(\\d+)",
-    validate({ body: planetSchema }),
+    validate({ body: serieASchema }),
     async (request, response, next) => {
         const serieAData: serieA = request.body;
         const serieAId = Number(request.params.id);
