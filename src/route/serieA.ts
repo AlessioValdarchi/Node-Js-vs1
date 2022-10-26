@@ -5,7 +5,7 @@ import { validationErrorMiddleware } from "../lib/middleware/validation";
 import { initMulterMiddleware } from "../lib/middleware/multer";
 import { serieASchema } from "../lib/middleware/validation/serieA";
 import { serieA } from "@prisma/client";
-
+import { validate } from "../lib/middleware/validation";
 const upload = initMulterMiddleware();
 
 const router = express.Router();
