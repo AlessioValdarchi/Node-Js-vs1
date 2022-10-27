@@ -33,8 +33,8 @@ describe("GET /serieA", () => {
             .get("/serieA")
             .expect(200)
             .expect("content-type", /application\/json/)
-            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
-
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080")
+            .expect("Access-Control-Allow-Credentials", "true");
         expect(resp.body).toEqual(serieA);
     });
 });
@@ -108,7 +108,8 @@ describe("POST /serieA", () => {
             })
             .expect(201)
             .expect("content-type", /application\/json/)
-            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080")
+            .expect("Access-Control-Allow-Credentials", "true");
 
         expect(resp.body).toEqual(serieA);
     });
@@ -157,7 +158,8 @@ describe("PUT /serieA", () => {
             })
             .expect(200)
             .expect("content-type", /application\/json/)
-            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080")
+            .expect("Access-Control-Allow-Credentials", "true");
 
         expect(resp.body).toEqual(serieA);
     });
@@ -224,7 +226,8 @@ describe("DELETE /serieA/:id", () => {
         const response = await req
             .delete("/serieA/23")
             .expect(404)
-            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080")
+            .expect("Access-Control-Allow-Credentials", "true");
 
         expect(response.text).toContain("CAN NOT DELETE/serieA/23");
     });
@@ -245,14 +248,16 @@ describe("POST /serieA/:id/photo", () => {
             .post("/serieA/3/photo")
             .attach("photo", "test-fixtures/photos/palla.png")
             .expect(201)
-            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080")
+            .expect("Access-Control-Allow-Credentials", "true");
     });
     test("Valid test with uploaded jpg photo", async () => {
         await req
             .post("/serieA/3/photo")
             .attach("photo", "test-fixtures/photos/tactic.jpg")
             .expect(201)
-            .expect("Access-Control-Allow-Origin", "http://localhost:8080");
+            .expect("Access-Control-Allow-Origin", "http://localhost:8080")
+            .expect("Access-Control-Allow-Credentials", "true");
     });
     test("Valid test with uploaded txt photo", async () => {
         const response = await req
