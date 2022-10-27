@@ -6,12 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
+        <p>
+            <a
+                href="http://localhost:3000/auth/login?redirectTo=http://localhost:8080/add"
+                >Login</a
+            >
+        </p>
+
         <form id="my-form" action="http://localhost:3000/serieA" method="post">
             <label for="name">Name</label>
             <input name="name" id="name" type="text" />
-            <label for="diameter">Point</label>
-            <input name="diameter" id="diameter" type="number" />
-            <button type="submit">Goal Scored</button>
+            <label for="point">Point</label>
+            <input name="point" id="point" type="number" />
+            <label for="goalScored">Goal Scored</label>
+            <input name="goalScored" id="goalScored" type="number" />
+            <button type="submit">Load</button>
         </form>
 
         <script>
@@ -29,6 +38,7 @@
                         "Content-Type": "application/json",
                     },
                     body: formJSON,
+                    credentials: "include",
                 });
                 const responseJson = await response.json();
                 console.log(responseJson);

@@ -7,6 +7,7 @@ import planetsRoute from "./route/serieA";
 import { initCorsMiddleware } from "./lib/middleware/cors";
 import { initSessionMiddleware } from "./lib/middleware/session";
 import { passport } from "./lib/middleware/passport";
+
 import authRoutes from "./route/auth";
 const app = express();
 app.use(initSessionMiddleware());

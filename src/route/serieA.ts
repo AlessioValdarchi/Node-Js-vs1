@@ -6,6 +6,8 @@ import { initMulterMiddleware } from "../lib/middleware/multer";
 import { serieASchema } from "../lib/middleware/validation/serieA";
 import { serieA } from "@prisma/client";
 import { validate } from "../lib/middleware/validation";
+import { checkAuthorization } from "../lib/middleware/passport";
+
 const upload = initMulterMiddleware();
 
 const router = express.Router();
@@ -33,6 +35,7 @@ router.get("/:id(\\d+)", async (request, response, next) => {
 
 router.post(
     "/",
+    checkAuthorization,
     validate({ body: serieASchema }),
     async (request, response) => {
         const serieAData: serieA = request.body;
@@ -47,6 +50,7 @@ router.post(
 
 router.put(
     "/:id(\\d+)",
+    checkAuthorization,
     validate({ body: serieASchema }),
     async (request, response, next) => {
         const serieAData: serieA = request.body;
@@ -66,23 +70,28 @@ router.put(
     }
 );
 
-router.delete("/:id(\\d+)", async (request, response, next) => {
-    const serieAId = Number(request.params.id);
+router.delete(
+    "/:id(\\d+)",
+    checkAuthorization,
+    async (request, response, next) => {
+        const serieAId = Number(request.params.id);
 
-    try {
-        await prisma.serieA.delete({
-            where: { id: serieAId },
-        });
+        try {
+            await prisma.serieA.delete({
+                where: { id: serieAId },
+            });
 
-        response.status(204).end();
-    } catch (e) {
-        response.status(404);
-        next(`Cannot DELETE /planets/${serieAId}`);
+            response.status(204).end();
+        } catch (e) {
+            response.status(404);
+            next(`Cannot DELETE /planets/${serieAId}`);
+        }
     }
-});
+);
 
 router.post(
     "/:id(\\d+)/photo",
+    checkAuthorization,
     upload.single("photo"),
     async (request, response, next) => {
         if (!request.file) {
