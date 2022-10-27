@@ -39,9 +39,10 @@ router.post(
     validate({ body: serieASchema }),
     async (request, response) => {
         const serieAData: serieA = request.body;
+        const username = request.user?.username as string;
 
         const serieA = await prisma.serieA.create({
-            data: serieAData,
+            data: { ...serieAData, createdBy: username, updatedBy: username },
         });
 
         response.status(201).json(serieA);
@@ -55,11 +56,12 @@ router.put(
     async (request, response, next) => {
         const serieAData: serieA = request.body;
         const serieAId = Number(request.params.id);
+        const username = request.user?.username as string;
 
         try {
             const serieA = await prisma.serieA.update({
                 where: { id: serieAId },
-                data: serieAData,
+                data: { ...serieAData, updatedBy: username },
             });
 
             response.json(serieA);
